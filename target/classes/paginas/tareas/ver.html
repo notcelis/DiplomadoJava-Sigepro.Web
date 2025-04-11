@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="es">
+<head th:replace="~{plantillas/plantilla :: head}"></head>
+<body>
+<header th:replace="~{plantillas/plantilla :: header}"></header>
+
+<main class="container text-center shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+
+  <h1 th:text="${contenido}"></h1>
+
+  <div class="container mt-5">
+    <div class="card shadow">
+      <div class="card-header bg-primary text-white">
+        <h3 th:text="'Detalle de la Tarea: ' + ${tarea.nombre}">Nombre de Tarea</h3>
+      </div>
+      <div class="card-body">
+
+        <section class="mb-4">
+          <h5>Información General</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>Descripción:</strong> <span th:text="${tarea.descripcion}">Descripción</span></li>
+            <li class="list-group-item"><strong>Estado:</strong> <span th:text="${tarea.estado}">Estado</span></li>
+            <li class="list-group-item"><strong>Fecha Límite:</strong> <span th:text="${tarea.fechaLimite}">Fecha</span></li>
+            <li class="list-group-item"><strong>Proyecto:</strong> <span th:text="${tarea.proyecto.nombre}">Proyecto</span></li>
+          </ul>
+        </section>
+
+        <section class="mb-4">
+          <h5>Comentarios</h5>
+          <div th:if="${#lists.isEmpty(comentarios)}">
+            <p class="text-muted">No hay comentarios para esta tarea.</p>
+          </div>
+          <ul class="list-group" th:each="comentario : ${comentarios}">
+            <li class="list-group-item">
+              <div class="d-flex justify-content-between">
+                <span><strong th:text="${comentario.usuario.nombre}">Usuario</strong>:</span>
+                <span class="text-muted" th:text="${comentario.fecha}">Fecha</span>
+              </div>
+              <p class="mb-0" th:text="${comentario.comentario}">Contenido</p>
+              <div th:if="${comentario.archivoUrl}">
+                <a th:href="@{${comentario.archivoUrl}}" target="_blank">Ver archivo adjunto</a>
+              </div>
+            </li>
+          </ul>
+
+          <!-- Formulario para agregar comentario -->
+
+          <form th:action="@{'/comentarios/' + ${tarea.id}}" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="usuarioId" th:value="${usuarioActual.id}"/>
+
+            <div class="mb-3">
+              <label for="comentario" class="form-label">Comentario</label>
+              <textarea class="form-control" name="comentario" required></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label for="archivo" class="form-label">Archivo adjunto</label>
+              <input type="file" name="archivo" class="form-control"/>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Enviar</button>
+          </form>
+
+
+        </section>
+
+        <section>
+          <h5>Historial de Cambios</h5>
+          <div th:if="${#lists.isEmpty(historialCambios)}">
+            <p class="text-muted">No hay cambios registrados.</p>
+          </div>
+          <ul class="list-group" th:each="cambio : ${historialCambios}">
+            <li class="list-group-item">
+              <div class="d-flex justify-content-between">
+                            <span>
+                                <strong th:text="${cambio.usuario.nombre}">Usuario</strong> realizó
+                                <em th:text="${cambio.accion}">Acción</em>
+                            </span>
+                <span class="text-muted" th:text="${cambio.fecha}">Fecha</span>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+      </div>
+      <div class="card-footer text-end">
+        <a href="/tarea/tareas" class="btn btn-secondary">← Volver al listado</a>
+      </div>
+    </div>
+  </div>
+
+</main>
+</body>
+</html>

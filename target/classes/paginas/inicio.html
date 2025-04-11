@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/iconos/bootstrap-icons.css}" rel="stylesheet">
+    <link th:href="@{/tema/login.css}" rel="stylesheet">
+    <title>Inicio</title>
+</head>
+<body class="d-flex align-items-center justify-content-center">
+    <div>
+        <header class="row">
+            <div class="col">
+                <form class="login" th:action="@{login}" method="post">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Correo</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Introduce tu correo electrónico">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Contraseña</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Ingresa tu contraseña">
+                    </div>
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">Recuérdame</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Inicio</button>
+                </form>
+            </div>
+        </header>
+    </div>
+</body>
+</html>

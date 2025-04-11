@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="es">
+<head th:replace="~{plantillas/plantilla :: head}"></head>
+<body>
+<header th:replace="~{plantillas/plantilla :: header}"></header>
+<main class="container text-center shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+
+  <div class="container mt-5">
+    <h1 class="mb-4">Editar Tarea</h1>
+
+    <form action="#" th:action="@{/tarea/editar/{id}(id=${tarea.id})}" method="post">
+      <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre:</label>
+        <input type="text" class="form-control" id="nombre" name="nombre" th:value="${tarea.nombre}" required />
+      </div>
+      <div class="mb-3">
+        <label for="descripcion" class="form-label">Descripción:</label>
+        <textarea class="form-control" id="descripcion" name="descripcion" rows="4" required th:text="${tarea.descripcion}"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="estado" class="form-label">Estado:</label>
+        <select class="form-select" id="estado" name="estado" required>
+          <option value="Pendiente" th:selected="${tarea.estado == 'Pendiente'}">Pendiente</option>
+          <option value="En_progreso" th:selected="${tarea.estado == 'En_progreso'}">En Progreso</option>
+          <option value="Completada" th:selected="${tarea.estado == 'Completada'}">Completada</option>
+          <option value="Cancelada" th:selected="${tarea.estado == 'Cancelada'}">Cancelada</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="fechaLimite" class="form-label">Fecha Limite:</label>
+        <input type="date" class="form-control" id="fechaLimite" name="fechaLimite" th:value="${tarea.fechaLimite}" required />
+      </div>
+      <div class="mb-3">
+        <label for="proyectoId" class="form-label">Proyecto:</label>
+        <select class="form-select" id="proyectoId" name="proyectoId" required>
+          <option th:each="proyecto : ${proyectos}" th:value="${proyecto.id}" th:text="${proyecto.nombre}" th:selected="${tarea.proyecto.id == proyecto.id}"></option>
+        </select>
+      </div>
+<!--      TO DO agregar fila usuario a tarea.usuario.id
+th:selected="${tarea.usuario.id == usuario.id}"
+-->
+      <div class="mb-3">
+        <label for="usuarioId" class="form-label">Asignar Usuario:</label>
+        <select class="form-select" id="usuarioId" name="usuarioId" required>
+          <option th:each="usuario : ${usuarios}" th:value="${usuario.id}" th:text="${usuario.nombre}" ></option>
+        </select>
+      </div>
+      <div class="d-flex justify-content-between">
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        <a href="#" class="btn btn-secondary">Cancelar</a>
+      </div>
+    </form>
+
+    <h2 class="mt-5">Historial de Cambios</h2>
+    <ul class="list-group">
+      <li th:each="historial : ${historialCambios}" class="list-group-item">
+        <p><span th:text="${historial.fecha}"></span> - <span th:text="${historial.accion}"></span> <br>
+          <small>Realizado por: <span th:text="${historial.usuario.nombre}"></span></small></p>
+      </li>
+    </ul>
+  </div>
+
+</main>
+<footer th:replace="~{plantillas/plantilla :: footer}"></footer>
+</body>
+</html>

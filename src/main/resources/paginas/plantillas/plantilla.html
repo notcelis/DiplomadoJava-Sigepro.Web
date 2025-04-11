@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/iconos/bootstrap-icons.css}" rel="stylesheet">
+    <link th:href="@{/tema/home.css}" rel="stylesheet">
+    <title>Spring Thymeleaf</title>
+</head>
+<body th:fragment="body">
+<header th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a th:href="@{/home}" class="navbar-brand">SIGEPRO</a>
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#menu"
+                    aria-controls="menu"
+                    aria-expanded="false"
+                    aria-label="Mostrar / Ocultar Menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!--Menu-->
+            <div class="collapse navbar-collapse justify-content-center" id="menu">
+                <ul class="navbar-nav  ">
+                    <!--Dropdown Tareas -->
+                    <li class="nav-item dropdown">
+                        <a
+                                id="dropdown-tareas"
+                                href="#"
+                                class="nav-link dropdown-toggle"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                        > <i class="bi bi-file-earmark-richtext"></i> Tareas
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown-tareas">
+                            <li><a th:href="@{/tarea/tareas}" class="dropdown-item">Ver tareas</a></li>
+                            <li><a th:href="@{/tarea/crear}" class="dropdown-item">Crear tarea</a></li>
+                        </ul>
+                    </li>
+                    <!--Dropdown Proyectos -->
+                    <li class="nav-item dropdown">
+                        <a
+                                id="dropdown-proyectos"
+                                href="#"
+                                class="nav-link dropdown-toggle"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                        > <i class="bi bi-archive"></i> Proyectos
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown-proyectos">
+                            <li><a th:href="@{/proyecto/ver}" class="dropdown-item">Ver proyectos</a></li>
+                            <li><a th:href="@{/proyecto/crear}" class="dropdown-item">Crear proyecto</a></li>
+                        </ul>
+                    </li>
+                    <!--Dropdown Reportes-->
+                    <li class="nav-item dropdown">
+                        <a
+                                id="dropdown-menu"
+                                href="#"
+                                class="nav-link dropdown-toggle"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                        > <i class="bi bi-graph-up"></i> Reportes
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown-menu">
+                            <li><a th:href="@{/reporte/ver}" class="dropdown-item">Consultar Reportes</a></li>
+                            <li><a th:href="@{/reporte/crear}" class="dropdown-item">Generar reporte</a></li>
+                        </ul>
+                    </li>
+                    <!--Dropdown Usuarios-->
+                    <li class="nav-item dropdown">
+                        <a
+                                id="dropdown-Usuarios"
+                                href="#"
+                                class="nav-link dropdown-toggle"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                        > <i class="bi bi-people"></i> Usuarios
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown-Usuarios">
+                            <li><a th:href="@{/usuario/invitar}" class="dropdown-item">Invitar</a></li>
+                            <li><a th:href="@{/usuario/equipos}" class="dropdown-item">Equipos</a></li>
+                            <li><a th:href="@{/usuario/buscar}" class="dropdown-item">Buscar persona</a></li>
+                            <li><a th:href="@{/usuario/roles}" class="dropdown-item">Roles</a></li>
+                        </ul>
+                    </li>
+
+                    <!--Dropdown Perfil-->
+                    <li class="nav-item dropdown">
+                        <a
+                                id="dropdown-Perfil"
+                                href="#"
+                                class="nav-link dropdown-toggle"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                        > <i class="bi bi-person-circle"></i> Perfil
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown-Perfil">
+                            <li><a th:href="@{/home/perfil/perfil}" class="dropdown-item">Perfil</a></li>
+                            <li><a th:href="@{/home/perfil/configuracion}" class="dropdown-item">Configuración</a></li>
+                            <li><a th:href="@{/home/perfil/ayuda}" class="dropdown-item">Ayuda</a></li>
+                            <li><a th:href="@{/home/perfil/logout}" class="dropdown-item">Cerrar sesión</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+</body>
+<footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top fixed-bottom">
+<!--    <p class="col-md-4 mb-0 text-secondary">Sistema de gestión de proyectos</p>-->
+
+<!--    <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-secondary">-->
+<!--        SIGEPRO-->
+<!--    </a>-->
+
+<!--    <ul class="nav col-md-4 justify-content-end">-->
+<!--        <li class="nav-item"><a href="#" class="nav-link px-2 text-secondary">Home</a></li>-->
+<!--        <li class="nav-item"><a href="#" class="nav-link px-2 text-secondary">Features</a></li>-->
+<!--        <li class="nav-item"><a href="#" class="nav-link px-2 text-secondary">Pricing</a></li>-->
+<!--        <li class="nav-item"><a href="#" class="nav-link px-2 text-secondary">FAQs</a></li>-->
+<!--        <li class="nav-item"><a href="#" class="nav-link px-2 text-secondary">About</a></li>-->
+<!--    </ul>-->
+    <script th:src="@{/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</footer>
+</html>

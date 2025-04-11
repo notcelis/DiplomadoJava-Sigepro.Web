@@ -1,0 +1,19 @@
+html {
+    height: 100%;
+}
+body{
+     height: 100%;
+     background-image: url("/image/login.png");
+     background-size: cover;
+     background-position: center;
+}
+img{
+    opacity: 0.5;
+}
+form.login{
+    background-image: linear-gradient(gray, white);
+    padding:25px;
+    border-style: solid;
+    opacity:0.95
+
+}
