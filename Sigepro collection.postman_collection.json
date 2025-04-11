@@ -1,0 +1,455 @@
+{
+	"info": {
+		"_postman_id": "615ddc0f-8ebc-4de0-b1ee-0f9deb3d3165",
+		"name": "Sigepro collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19910765"
+	},
+	"item": [
+		{
+			"name": "Proyectos",
+			"item": [
+				{
+					"name": "Obtener todos los proyectos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/proyectos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"proyectos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener proyecto por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/proyectos/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"proyectos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear nuevo proyecto",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Nuevo Proyecto\",\n    \"descripcion\": \"Descripción del nuevo proyecto\",\n    \"creadorId\": 1,\n    \"fechaCreacion\":\"2025-04-11\"\n\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/proyectos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"proyectos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar proyecto por ID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Proyecto Actualizado\",\n    \"descripcion\": \"Nueva descripción del proyecto\",\n    \"creadorId\": 1,\n    \"fechaCreacion\":\"2025-04-11\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/proyectos/3",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"proyectos",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar proyecto por ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/proyectos/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"proyectos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tareas",
+			"item": [
+				{
+					"name": "Obtener todas las tareas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/tareas",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"tareas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener tarea por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/tareas/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"tareas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear nueva tarea",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"proyectoId\": 3,\n    \"usuarioId\": 2,\n    \"nombre\": \"Nueva Tarea\",\n    \"descripcion\": \"Descripción de la nueva tarea\",\n    \"estado\": \"Pendiente\",\n    \"fechaLimite\": \"2025-04-25\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/tareas",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"tareas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar tarea por ID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"proyectoId\": 3,\n    \"usuarioId\": 4,\n    \"nombre\": \"Tarea Actualizada\",\n    \"descripcion\": \"Nueva descripción de la tarea\",\n    \"estado\": \"En_progreso\",\n    \"fechaLimite\": \"2025-04-20\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/tareas/4",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"tareas",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar tarea por ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/tareas/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"tareas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener tareas por estado",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/tareas/estado/Pendiente",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"tareas",
+								"estado",
+								"Pendiente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener tareas por usuario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/tareas/usuario/2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"tareas",
+								"usuario",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comentarios",
+			"item": [
+				{
+					"name": "Obtener todos los comentarios de una tarea",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/tareas/1/comentarios",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"tareas",
+								"1",
+								"comentarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener comentario por ID de tarea y comentario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/tareas/1/comentarios/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"tareas",
+								"1",
+								"comentarios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar nuevo comentario a una tarea",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "usuarioId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "comentario",
+									"value": "Este es un nuevo comentario.",
+									"type": "text"
+								},
+								{
+									"key": "archivo",
+									"value": "",
+									"type": "file"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/tareas/4/comentarios",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"tareas",
+								"4",
+								"comentarios"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Historial de Cambios",
+			"item": [
+				{
+					"name": "Obtener historial de cambios por ID de tarea",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/tareas/1/historial",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"tareas",
+								"1",
+								"historial"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener registro de historial por ID de tarea e ID de historial",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/tareas/1/historial/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"tareas",
+								"1",
+								"historial",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registrar nuevo cambio en el historial de una tarea",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"accion\": \"Se modificó el nombre de la tarea\",\n    \"usuarioId\": 1,\n    \"tareaId\": 4\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/tareas/4/historial",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"tareas",
+								"4",
+								"historial"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}
