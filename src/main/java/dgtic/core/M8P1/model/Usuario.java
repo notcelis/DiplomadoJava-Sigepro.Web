@@ -32,6 +32,10 @@ public class Usuario {
     @JoinColumn(name = "rolId")
     private Rol rol;
 
+    @ManyToOne
+    @JoinColumn(name = "equipoId")
+    private Equipo equipo;
+
     @Override
     public String toString() {
         return "Usuario{" +

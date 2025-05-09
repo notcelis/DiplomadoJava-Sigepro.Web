@@ -2,7 +2,7 @@ package dgtic.core.M8P1.service;
 
 import dgtic.core.M8P1.model.Tarea;
 import dgtic.core.M8P1.model.EstadoTarea;
-import dgtic.core.M8P1.model.TareaRepository;
+import dgtic.core.M8P1.repository.TareaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

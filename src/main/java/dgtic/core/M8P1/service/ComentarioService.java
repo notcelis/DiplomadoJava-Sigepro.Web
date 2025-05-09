@@ -1,7 +1,7 @@
 package dgtic.core.M8P1.service;
 
 import dgtic.core.M8P1.model.Comentario;
-import dgtic.core.M8P1.model.ComentarioRepository;
+import dgtic.core.M8P1.repository.ComentarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

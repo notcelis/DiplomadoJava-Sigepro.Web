@@ -1,7 +1,7 @@
 package dgtic.core.M8P1.service;
 
 import dgtic.core.M8P1.model.HistorialCambio;
-import dgtic.core.M8P1.model.HistorialCambioRepository;
+import dgtic.core.M8P1.repository.HistorialCambioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

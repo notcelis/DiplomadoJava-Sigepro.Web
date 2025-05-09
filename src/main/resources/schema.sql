@@ -5,8 +5,14 @@ use sigepro;
 -- Tabla de Roles
 CREATE TABLE roles (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(50) NOT NULL UNIQUE
+    nombre ENUM('Administrador', 'Lider', 'Miembro','Invitado') DEFAULT 'Invitado'
 );
+
+CREATE TABLE equipo (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL
+);
+
 
 -- Tabla de Usuarios
 CREATE TABLE usuarios (
@@ -15,6 +21,7 @@ CREATE TABLE usuarios (
     email VARCHAR(100) NOT NULL UNIQUE,
     contraseña VARCHAR(255) NOT NULL,
     rolId INT NOT NULL,
+    equipoId BIGINT,
     CONSTRAINT fk_usuarios_roles FOREIGN KEY (rolId) REFERENCES roles(id) ON DELETE CASCADE
 );
 
@@ -39,6 +46,15 @@ CREATE TABLE tareas (
     fechaLimite DATE,
     CONSTRAINT fk_tareas_proyectos FOREIGN KEY (proyectoId) REFERENCES proyectos(id) ON DELETE CASCADE,
     CONSTRAINT fk_tareas_usuarios FOREIGN KEY (usuarioId) REFERENCES usuarios(id) ON DELETE CASCADE
+);
+
+-- Tabla de invitaciones
+CREATE TABLE invitacion (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    token VARCHAR(100) NOT NULL,
+    fecha_invitacion TIMESTAMP NOT NULL,
+    aceptada BOOLEAN DEFAULT FALSE
 );
 
 -- Tabla de Comentarios

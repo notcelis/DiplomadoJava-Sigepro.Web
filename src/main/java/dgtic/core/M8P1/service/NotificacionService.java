@@ -1,10 +1,13 @@
 package dgtic.core.M8P1.service;
 
 import dgtic.core.M8P1.model.Notificacion;
-import dgtic.core.M8P1.model.NotificacionRepository;
+import dgtic.core.M8P1.model.TipoNotificacion;
+import dgtic.core.M8P1.model.Usuario;
+import dgtic.core.M8P1.repository.NotificacionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +30,15 @@ public class NotificacionService {
 
     public void deleteNotificacion(Long id) {
         notificacionRepository.deleteById(id);
+    }
+
+    public void invitarUsuario(Usuario usuario, String contenido) {
+        Notificacion notificacion = new Notificacion();
+        notificacion.setUsuario(usuario);
+        notificacion.setTipo(TipoNotificacion.Otro);
+        notificacion.setContenido(contenido);
+        notificacion.setFecha(LocalDateTime.now());
+        notificacionRepository.save(notificacion);
     }
 }
 

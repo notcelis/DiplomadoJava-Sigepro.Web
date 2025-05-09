@@ -1,5 +1,6 @@
-package dgtic.core.M8P1.model;
+package dgtic.core.M8P1.repository;
 
+import dgtic.core.M8P1.model.Usuario;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -32,5 +33,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
 
     // Obtener usuarios por rol con paginación
     Page<Usuario> findByRolId(Long rolId, Pageable pageable);
+
+    List<Usuario> findByNombreContainingIgnoreCase(String nombre);
 
 }

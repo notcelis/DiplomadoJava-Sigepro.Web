@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="es">
+<head th:replace="~{plantillas/plantilla :: head}"></head>
+<body>
+<header th:replace="~{plantillas/plantilla :: header}"></header>
+
+<main class="container text-center shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+
+    <h1>Equipos</h1>
+    <a th:href="@{/equipos/nuevo}">Crear nuevo equipo</a>
+    <table>
+        <thead>
+        <tr><th>ID</th><th>Nombre</th></tr>
+        </thead>
+        <tbody>
+        <tr th:each="equipo : ${equipos}">
+            <td th:text="${equipo.id}"></td>
+            <td th:text="${equipo.nombre}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</main>
+
+
+<footer th:replace="~{plantillas/plantilla :: footer}"></footer>
+</body>
+</html>
+a

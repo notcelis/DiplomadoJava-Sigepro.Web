@@ -1,7 +1,7 @@
 package dgtic.core.M8P1.service;
 
 import dgtic.core.M8P1.model.Reporte;
-import dgtic.core.M8P1.model.ReporteRepository;
+import dgtic.core.M8P1.repository.ReporteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
 package dgtic.core.M8P1.service;
 
 import dgtic.core.M8P1.model.Rol;
-import dgtic.core.M8P1.model.RolRepository;
+import dgtic.core.M8P1.repository.RolRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,5 +27,15 @@ public class RolService {
 
     public void deleteRol(Long id) {
         rolRepository.deleteById(id);
+    }
+
+    public Optional<Rol> buscarPorNombre(String nombre) {
+        return rolRepository.findByNombre(nombre);
+    }
+
+    public Rol crearRol(String nombre) {
+        Rol rol = new Rol();
+        rol.setNombre(nombre);
+        return rolRepository.save(rol);
     }
 }

@@ -5,7 +5,24 @@
 <body>
 <header th:replace="~{plantillas/plantilla :: header}"></header>
 <main class="container text-center shadow-lg p-3 mb-5 bg-body-tertiary rounded">
-  <h1 th:text="${usuarios}"></h1>
+  <h1 th:text="${cadena}"></h1>
+
+  <form method="get" th:action="@{/usuario/buscar}">
+    <div class="input-group mb-3">
+      <input type="text" name="nombre" class="form-control" th:value="${nombre}" placeholder="Nombre de usuario">
+      <button class="btn btn-primary" type="submit">Buscar</button>
+    </div>
+  </form>
+
+  <div th:if="${usuarios.size() > 0}">
+    <ul class="list-group">
+      <li class="list-group-item" th:each="usuario : ${usuarios}" th:text="${usuario.nombre}"></li>
+    </ul>
+  </div>
+  <div th:if="${usuarios.size() == 0 && nombre != null}">
+    <p class="text-danger">No se encontraron usuarios.</p>
+  </div>
+
 </main>
 <footer th:replace="~{plantillas/plantilla :: footer}"></footer>
 </body>

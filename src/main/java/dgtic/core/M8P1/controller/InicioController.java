@@ -12,20 +12,14 @@ public class InicioController {
     @Value("${message.application}")
     private String message;
 
-    @GetMapping("/")
-    public String inicio(){
-        return "inicio";
-    }
-
     @GetMapping("home")
     public String home(Model model){
         model.addAttribute("bienvenida","¿En qué trabajaremos hoy?");
         return "home/home";
     }
-    @PostMapping("login")
-    public String login(Model model){
-        model.addAttribute("bienvenida","¿En qué trabajaremos hoy?");
-        return "home/home";
+    @GetMapping("/login")
+    public String login(){
+        return "inicio";
     }
 
 }

@@ -1,5 +1,6 @@
-package dgtic.core.M8P1.model;
+package dgtic.core.M8P1.repository;
 
+import dgtic.core.M8P1.model.Proyecto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

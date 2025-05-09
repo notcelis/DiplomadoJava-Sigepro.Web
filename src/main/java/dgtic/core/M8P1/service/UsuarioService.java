@@ -1,7 +1,9 @@
 package dgtic.core.M8P1.service;
 
+import dgtic.core.M8P1.model.Rol;
 import dgtic.core.M8P1.model.Usuario;
-import dgtic.core.M8P1.model.UsuarioRepository;
+import dgtic.core.M8P1.repository.RolRepository;
+import dgtic.core.M8P1.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +16,9 @@ import java.util.Optional;
 public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private RolRepository rolRepository;
 
     public List<Usuario> getAllUsuarios() {
         return (List<Usuario>) usuarioRepository.findAll();
@@ -34,5 +39,17 @@ public class UsuarioService {
     public Page<Usuario> obtenerUsuariosPaginados(Pageable pageable) {
         return usuarioRepository.findAll(pageable);
     }
+
+    public List<Usuario> buscarPorNombre(String nombre) {
+        return usuarioRepository.findByNombreContainingIgnoreCase(nombre);
+    }
+
+    public void asignarRol(Long usuarioId, Long rolId) {
+        Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow();
+        Rol rol = rolRepository.findById(rolId).orElseThrow();
+        usuario.setRol(rol);
+        usuarioRepository.save(usuario);
+    }
+
 }
 
