@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TareaService {
@@ -38,5 +39,17 @@ public class TareaService {
     }
 
 
+    public List<Tarea> getTareasFiltradas(Integer proyectoId, Integer usuarioId, String prioridad, String search) {
+        List<Tarea> tareas = tareaRepository.findAll(); // O usa un método paginado
+
+        return tareas.stream()
+                .filter(t -> proyectoId == null || t.getProyecto().getId().equals(proyectoId))
+                .filter(t -> usuarioId == null || t.getUsuario().getId().equals(usuarioId))
+                .filter(t -> prioridad == null || prioridad.isBlank() || t.getPrioridad().equals(prioridad))
+                .filter(t -> search == null || search.isBlank()
+                        || t.getNombre().toLowerCase().contains(search.toLowerCase())
+                        || (t.getDescripcion() != null && t.getDescripcion().toLowerCase().contains(search.toLowerCase())))
+                .collect(Collectors.toList());
+    }
 }
 

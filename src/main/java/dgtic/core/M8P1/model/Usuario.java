@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -32,9 +34,8 @@ public class Usuario {
     @JoinColumn(name = "rolId")
     private Rol rol;
 
-    @ManyToOne
-    @JoinColumn(name = "equipoId")
-    private Equipo equipo;
+    @OneToMany(mappedBy = "usuario")
+    private List<UsuarioEquipo> equipos;
 
     @Override
     public String toString() {

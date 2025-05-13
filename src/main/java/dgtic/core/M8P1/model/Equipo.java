@@ -21,6 +21,6 @@ public class Equipo {
     private String nombre;
 
     @OneToMany(mappedBy = "equipo")
-    private List<Usuario> usuarios;
+    private List<UsuarioEquipo> usuarios;
 
 }

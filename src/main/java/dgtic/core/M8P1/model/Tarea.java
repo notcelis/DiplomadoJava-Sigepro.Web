@@ -45,6 +45,10 @@ public class Tarea {
     @Column(name = "estado")
     private EstadoTarea estado;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "prioridad")
+    private PrioridadTarea prioridad;
+
     @DateTimeFormat
     @Column(nullable = false, name = "fechaLimite")
     @NotNull(message = "La fecha límite es obligatoria")

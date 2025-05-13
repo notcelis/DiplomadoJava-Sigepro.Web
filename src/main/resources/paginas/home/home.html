@@ -2,10 +2,111 @@
 <html xmlns:th="http://www.thymeleaf.org"
       lang="es">
 <head th:replace="~{plantillas/plantilla :: head}"></head>
+<style>
+  .kanban-board {
+      display: flex;
+      gap: 20px;
+      padding: 20px;
+      overflow-x: auto;
+  }
+
+  .kanban-column {
+      flex: 1;
+      background-color: #f4f4f4;
+      border-radius: 8px;
+      padding: 10px;
+      min-width: 250px;
+  }
+
+  .kanban-column h3 {
+      text-align: center;
+  }
+
+  .kanban-card {
+      background-color: white;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  .kanban-card {
+    border-left: 5px solid gray;
+    background-color: #f5f5f5;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+  }
+
+  .prioridad-baja {
+    border-left-color: #2ecc71; /* verde */
+  }
+
+  .prioridad-media {
+    border-left-color: #f1c40f; /* amarillo */
+  }
+
+  .prioridad-alta {
+    border-left-color: #e67e22; /* naranja */
+  }
+
+  .prioridad-crítica {
+    border-left-color: #e74c3c; /* rojo */
+  }
+</style>
 <body>
 <header th:replace="~{plantillas/plantilla :: header}"></header>
 <main class="container text-center shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+
   <h1 th:text="${bienvenida}"></h1>
+
+  <form method="get" th:action="@{/home}" class="kanban-filters">
+    <select name="proyectoId">
+      <option value="">Todos los proyectos</option>
+      <option th:each="proyecto : ${proyectos}"
+              th:value="${proyecto.id}"
+              th:text="${proyecto.nombre}"
+              th:selected="${proyecto.id == proyectoSeleccionado}">
+      </option>
+    </select>
+
+    <select name="usuarioId">
+      <option value="">Todos los usuarios</option>
+      <option th:each="usuario : ${usuarios}"
+              th:value="${usuario.id}"
+              th:text="${usuario.nombre}"
+              th:selected="${usuario.id == usuarioSeleccionado}">
+      </option>
+    </select>
+
+    <select name="prioridad">
+      <option value="">Todas las prioridades</option>
+      <option value="baja" th:selected="${prioridadSeleccionada == 'baja'}">Baja</option>
+      <option value="media" th:selected="${prioridadSeleccionada == 'media'}">Media</option>
+      <option value="alta" th:selected="${prioridadSeleccionada == 'alta'}">Alta</option>
+      <option value="crítica" th:selected="${prioridadSeleccionada == 'crítica'}">Crítica</option>
+    </select>
+
+    <input type="text" name="search" placeholder="Buscar..." th:value="${busqueda}">
+    <button type="submit">Filtrar</button>
+  </form>
+
+  <div class="kanban-board">
+    <div class="kanban-column" th:each="entrada : ${tareas}">
+      <h3 th:text="${entrada.key}">Estado</h3>
+      <div th:each="tarea : ${entrada.value}">
+        <a th:href="@{'/tarea/ver/' + ${tarea.id}}" style="text-decoration: none; color: inherit;">
+          <div class="kanban-card" th:classappend="' prioridad-' + ${tarea.prioridad}">
+            <strong th:text="${tarea.nombre}">Tarea</strong><br>
+            <span th:text="${tarea.descripcion}">Descripción</span><br>
+            <small th:text="'Fecha límite: ' + ${tarea.fechaLimite}">Fecha</small><br>
+            <small th:text="'Asignado a: ' + ${tarea.usuario.nombre}">Usuario</small><br>
+            <small th:text="'Proyecto: ' + ${tarea.proyecto.nombre}">Proyecto</small>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
 </main>
 <footer th:replace="~{plantillas/plantilla :: footer}"></footer>
 </body>
