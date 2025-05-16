@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="es">
+<head th:replace="~{plantillas/plantilla :: head}"></head>
+<body>
+<header th:replace="~{plantillas/plantilla :: header}"></header>
+<main class="container text-center shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+
+
+  <h1 th:text="${contenido}"></h1>
+
+  <div class="container mt-5">
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">Editar Proyecto</h4>
+      </div>
+      <div class="card-body">
+        <form th:action="@{'/proyecto/editar/' + ${proyecto.id}}" th:object="${proyecto}" method="post">
+
+          <!-- Nombre -->
+          <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre del Proyecto</label>
+            <input type="text" id="nombre" th:field="*{nombre}" class="form-control" required>
+          </div>
+
+          <!-- Descripción -->
+          <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción</label>
+            <textarea id="descripcion" th:field="*{descripcion}" class="form-control" rows="4"></textarea>
+          </div>
+
+          <!-- Creador ID (solo lectura) -->
+          <div class="mb-3">
+            <label for="usuario" class="form-label">Creador</label>
+            <select name="usuario" id="usuario" disabled>
+              <option value="">Todos los usuarios</option>
+              <option th:each="usuario : ${usuarios}"
+                      th:value="${usuario.id}"
+                      th:text="${usuario.nombre}"
+                      th:selected="${usuario.id == usuarioSeleccionado}">
+              </option>
+            </select>
+          </div>
+
+          <!-- Activo -->
+          <div class="form-check mb-3">
+            <label for="activo" class="form-label">Estatus</label>
+            <select name="activo" id="activo">
+              <option value="1" th:selected="${activo == 1}">activo</option>
+              <option value="0" th:selected="${activo == 0}">inactivo</option>
+            </select>
+          </div>
+
+          <!-- Botones -->
+          <div class="d-flex justify-content-between">
+            <a th:href="@{/proyecto/ver}" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-success">Guardar Cambios</button>
+          </div>
+
+        </form>
+
+        <div class="card mt-4">
+          <div class="card-header">
+            <h5>Miembros del proyecto</h5>
+          </div>
+          <div class="card-body">
+            <!-- Formulario para agregar usuario -->
+            <form th:action="@{'/proyecto/' + ${proyecto.id} + '/agregar-usuario'}" method="post" class="row g-3 align-items-end">
+              <div class="col-md-8">
+                <label for="usuarioId" class="form-label">Seleccionar Usuario</label>
+                <select name="usuarioId" id="usuarioId" class="form-select" required>
+                  <option value="" disabled selected>Seleccione un usuario</option>
+                  <option th:each="usuario : ${usuariosDisponibles}"
+                          th:value="${usuario.id}"
+                          th:text="${usuario.nombre}">Usuario</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <button type="submit" class="btn btn-primary w-100">Agregar al Proyecto</button>
+              </div>
+            </form>
+
+            <!-- Lista de usuarios actuales del proyecto -->
+            <div class="mt-4">
+              <h6>Usuarios en este proyecto:</h6>
+              <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center"
+                    th:each="usuario : ${usuariosProyecto}">
+                  <span th:text="${usuario.nombre}">Nombre Usuario</span>
+                  <form th:action="@{'/proyecto/' + ${proyecto.id} + '/remover-usuario/' + ${usuario.id}}" method="post">
+                    <button type="submit" class="btn btn-sm btn-danger">Quitar</button>
+                  </form>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!--<footer th:replace="~{plantillas/plantilla :: footer}"></footer>-->
+<script th:src="@{/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

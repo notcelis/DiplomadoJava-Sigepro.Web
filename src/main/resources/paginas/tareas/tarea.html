@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
       lang="es">
 <head th:replace="~{plantillas/plantilla :: head}"></head>
 <body>
@@ -29,19 +29,20 @@
         <a th:href="@{/tarea/ver/{id} (id=${tarea.id})}"
            class="btn btn-success">ver <i class="fas fa-pen-nib"
                                                 aria-hidden="true"></i> </a>
-        <a th:href="@{/tarea/editar/{id} (id=${tarea.id})}"
-           class="btn btn-info">editar <i class="fas fa-pen-nib"
-                                                aria-hidden="true"></i> </a>
-
-        <!-- Formulario DELETE -->
-        <form th:action="@{/tarea/eliminar/{id}(id=${tarea.id})}" method="post" th:id="'formEliminar' + ${tarea.id}" style="display:inline;">
-          <input type="hidden" name="_method" value="delete"/>
-          <button type="button" class="btn btn-danger btn-sm"
-                  th:onclick="'confirmarEliminacion(' + ${tarea.id} + ')'">
-            Eliminar
-          </button>
-        </form>
-
+        <!-- Mostrar solo si el usuario tiene rol ADMINISTRADOR o LIDER-->
+        <div sec:authorize="hasAnyRole('ADMINISTRADOR','LIDER','MIEMBRO')">
+          <a th:href="@{/tarea/editar/{id} (id=${tarea.id})}"
+             class="btn btn-info">editar <i class="fas fa-pen-nib"
+                                            aria-hidden="true"></i> </a>
+          <!-- Formulario DELETE -->
+          <form th:action="@{/tarea/eliminar/{id}(id=${tarea.id})}" method="post" th:id="'formEliminar' + ${tarea.id}" style="display:inline;">
+            <input type="hidden" name="_method" value="delete"/>
+            <button type="button" class="btn btn-danger btn-sm"
+                    th:onclick="'confirmarEliminacion(' + ${tarea.id} + ')'">
+              Eliminar
+            </button>
+          </form>
+        </div>
       </td>
     </tr>
     </tbody>
@@ -49,6 +50,7 @@
 
 </main>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
   function confirmarEliminacion(tareaId) {
       Swal.fire({
@@ -67,7 +69,7 @@
       });
   }
 </script>
-<footer th:replace="~{plantillas/plantilla :: footer}"></footer>
-
+<!--<footer th:replace="~{plantillas/plantilla :: footer}"></footer>-->
+<script th:src="@{/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

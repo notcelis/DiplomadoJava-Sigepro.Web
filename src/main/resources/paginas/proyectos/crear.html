@@ -43,31 +43,42 @@
       </div>
     </div>
 
-    <div class="row justify-content-center">
-      <div class="col-6">
-        <div class="form-floating">
-          <input th:class="${#fields.hasErrors('fechaCreacion')}? 'form-control is-invalid':form-control"
-                 type="Date" id="fechaCreacion"
-                 name="fechaCreacion"
-                 th:field="*{fechaCreacion}"
-                 placeholder="fechaCreacion">
-          <label for="fechaCreacion">fecha Creacion:</label>
-        </div>
-      </div>
-    </div>
+<!--    <div class="row justify-content-center">-->
+<!--      <div class="col-6">-->
+<!--        <div class="form-floating">-->
+<!--          <input th:class="${#fields.hasErrors('fechaCreacion')}? 'form-control is-invalid':form-control"-->
+<!--                 type="Date" id="fechaCreacion"-->
+<!--                 name="fechaCreacion"-->
+<!--                 th:field="*{fechaCreacion}"-->
+<!--                 placeholder="fechaCreacion">-->
+<!--          <label for="fechaCreacion">fecha Creacion:</label>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
 
     <div class="row justify-content-center">
       <div class="col-6">
         <div class="form-floating">
-          <input th:class="${#fields.hasErrors('creador')}? 'form-control is-invalid':form-control"
-                 type="text" id="creador"
-                 name="creador"
-                 th:field="*{creador}"
-                 placeholder="creador">
-          <label for="creador">Administrador:</label>
+<!--          <input th:class="${#fields.hasErrors('creador')}? 'form-control is-invalid':form-control"-->
+<!--                 type="text" id="creador"-->
+<!--                 name="creador"-->
+<!--                 th:field="*{creador}"-->
+<!--                 placeholder="creador">-->
+<!--          <label for="creador">Administrador:</label>-->
+
+<!--          <select name="creador" id="creador">-->
+<!--            <option th:each="usuario : ${usuarios}"-->
+<!--                    th:value="${usuario.id}"-->
+<!--                    th:text="${usuario.nombre}"-->
+<!--                    th:selected="${usuario.id == usuarioSeleccionado}">-->
+<!--            </option>-->
+<!--            <label for="creador">Administrador:</label>-->
+<!--          </select>-->
+
         </div>
       </div>
     </div>
+
 
     <div class="col-8">
       <br/>

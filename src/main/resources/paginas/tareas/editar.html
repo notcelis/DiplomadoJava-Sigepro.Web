@@ -28,6 +28,15 @@
         </select>
       </div>
       <div class="mb-3">
+        <label for="prioridadTarea" class="form-label">Prioridad:</label>
+        <select class="form-select" id="prioridadTarea" name="prioridadTarea" required>
+          <option value="baja" th:selected="${tarea.prioridad == 'baja'}">baja</option>
+          <option value="media" th:selected="${tarea.prioridad == 'media'}">En media</option>
+          <option value="alta" th:selected="${tarea.prioridad == 'alta'}">alta</option>
+          <option value="crítica" th:selected="${tarea.prioridad == 'crítica'}">crítica</option>
+        </select>
+      </div>
+      <div class="mb-3">
         <label for="fechaLimite" class="form-label">Fecha Limite:</label>
         <input type="date" class="form-control" id="fechaLimite" name="fechaLimite" th:value="${tarea.fechaLimite}" required />
       </div>
@@ -62,6 +71,7 @@ th:selected="${tarea.usuario.id == usuario.id}"
   </div>
 
 </main>
-<footer th:replace="~{plantillas/plantilla :: footer}"></footer>
+<!--<footer th:replace="~{plantillas/plantilla :: footer}"></footer>-->
+<script th:src="@{/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

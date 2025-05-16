@@ -7,9 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface HistorialCambioRepository extends JpaRepository<HistorialCambio,Long> {
     List<HistorialCambio> findByUsuarioId(Long usuarioId, Pageable pageable);
+    List<HistorialCambio> findByTareaId(Long tareaId);
 
     @Query("SELECT h FROM HistorialCambio h JOIN h.tarea t WHERE h.usuario.id = :usuarioId")
     List<HistorialCambio> findHistorialByUsuarioId(@Param("usuarioId") int usuarioId);

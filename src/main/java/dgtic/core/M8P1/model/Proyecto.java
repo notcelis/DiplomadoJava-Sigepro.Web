@@ -39,4 +39,7 @@ public class Proyecto {
     @NotNull
     private Usuario creador;
 
+    @Column(columnDefinition = "integer default 1")
+    private Integer activo;
+
 }

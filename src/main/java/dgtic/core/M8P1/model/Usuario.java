@@ -34,9 +34,6 @@ public class Usuario {
     @JoinColumn(name = "rolId")
     private Rol rol;
 
-    @OneToMany(mappedBy = "usuario")
-    private List<UsuarioEquipo> equipos;
-
     @Override
     public String toString() {
         return "Usuario{" +

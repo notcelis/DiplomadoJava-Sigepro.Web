@@ -1,12 +1,26 @@
 html {
     height: 100%;
 }
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f8f8f8; /* Un color de fondo para que el contenido no se vea a través */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Una sombra sutil para separarlo del contenido */
+  z-index: 100; /* Asegura que esté por encima de otros elementos */
+}
+
 body{
      height: 100%;
      background-image: url("/image/home.png");
      background-size: cover;
      background-position: center;
+     background-attachment: fixed;
+     padding-top: 60px;
 }
+
 img{
     opacity: 0.5;
 }
@@ -17,3 +31,118 @@ footer{
     background-color: #172b4d;
     font-color:
 }
+
+.kanban-filters {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  padding: 20px;
+  background-color: #f4f5f7; /* Un fondo claro para contraste */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.kanban-filters select,
+.kanban-filters input[type="text"],
+.kanban-filters button {
+  padding: 10px 15px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.kanban-filters select {
+  appearance: none; /* Para quitar los estilos por defecto del navegador */
+  background-image: url('data:image/svg+xml;utf8,<svg fill="currentColor" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 1em;
+  padding-right: 30px; /* Espacio para la flecha */
+}
+
+.kanban-filters select:focus,
+.kanban-filters input[type="text"]:focus {
+  outline: none;
+  border-color: #172b4d; /* Color principal al enfocar */
+  box-shadow: 0 0 0 2px rgba(23, 43, 77, 0.2); /* Un ligero resplandor al enfocar */
+}
+
+.kanban-filters button {
+  background-color: #172b4d; /* Color principal para el botón */
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.kanban-filters button:hover {
+  background-color: #0c1a33; /* Un tono más oscuro al pasar el ratón */
+}
+
+.kanban-filters button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(23, 43, 77, 0.4);
+}
+
+/* Opcional: Estilos más compactos si necesitas ahorrar espacio */
+
+.kanban-filters {
+  flex-wrap: wrap;
+}
+
+.kanban-filters > * {
+  flex-grow: 1;
+  min-width: 150px;
+}
+
+
+.kanban-board {
+      display: flex;
+      gap: 20px;
+      padding: 20px;
+      overflow-x: auto;
+  }
+
+  .kanban-column {
+      flex: 1;
+      background-color: #f4f4f4;
+      border-radius: 8px;
+      padding: 10px;
+      min-width: 250px;
+  }
+
+  .kanban-column h3 {
+      text-align: center;
+  }
+
+  .kanban-card {
+      background-color: white;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  .kanban-card {
+    border-left: 5px solid gray;
+    background-color: #f5f5f5;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+  }
+
+  .prioridad-baja {
+    border-left-color: #2ecc71; /* verde */
+  }
+
+  .prioridad-media {
+    border-left-color: #f1c40f; /* amarillo */
+  }
+
+  .prioridad-alta {
+    border-left-color: #e67e22; /* naranja */
+  }
+
+  .prioridad-crítica {
+    border-left-color: #e74c3c; /* rojo */
+  }

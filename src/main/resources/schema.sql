@@ -8,13 +8,6 @@ CREATE TABLE roles (
     nombre ENUM('Administrador', 'Lider', 'Miembro','Invitado') DEFAULT 'Invitado'
 );
 
-CREATE TABLE equipo (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(100) NOT NULL
-);
-
-
-
 -- Tabla de Usuarios
 CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -23,14 +16,6 @@ CREATE TABLE usuarios (
     contraseña VARCHAR(255) NOT NULL,
     rolId INT NOT NULL,
     CONSTRAINT fk_usuarios_roles FOREIGN KEY (rolId) REFERENCES roles(id) ON DELETE CASCADE
-);
-
-CREATE TABLE usuario_equipo (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    usuarioId INT,
-    equipoId INT,
-    FOREIGN KEY (usuarioId) REFERENCES usuarios(id),
-    FOREIGN KEY (equipoId) REFERENCES equipo(id)
 );
 
 -- Tabla de Proyectos
@@ -43,6 +28,19 @@ CREATE TABLE proyectos (
     activo BOOLEAN DEFAULT TRUE,
     CONSTRAINT fk_proyectos_creador FOREIGN KEY (creadorId) REFERENCES usuarios(id) ON DELETE CASCADE
 );
+
+-- Tabla para vincular usuarios con proyectos
+CREATE TABLE usuarios_proyectos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuarioId INT NOT NULL,
+    proyectoId INT NOT NULL,
+    rol ENUM('miembro', 'administrador') DEFAULT 'miembro',
+    fechaAsignacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_up_usuario FOREIGN KEY (usuarioId) REFERENCES usuarios(id) ON DELETE CASCADE,
+    CONSTRAINT fk_up_proyecto FOREIGN KEY (proyectoId) REFERENCES proyectos(id) ON DELETE CASCADE,
+    UNIQUE(usuarioId, proyectoId) -- Evita duplicados
+);
+
 
 -- Tabla de Tareas
 CREATE TABLE tareas (

@@ -47,6 +47,7 @@ INSERT INTO comentarios (tareaId, usuarioId, comentario, archivoUrl) VALUES
 (11, 1, 'Se mejoró la eficiencia del código', 'refactorizacion.txt'),
 (12, 4, 'Se corrigió el error y se realizaron pruebas', 'correccion_error.txt');
 
+
 -- Insertar Notificaciones
 INSERT INTO notificaciones (usuarioId, tipo, contenido) VALUES
 (2, 'Tarea', 'Se te ha asignado la tarea "Diseñar la interfaz de usuario".'),
@@ -89,12 +90,6 @@ INSERT INTO roles (nombre) VALUES
 ('Miembro'),
 ('Invitado');
 
--- Insert para la tabla equipo
-INSERT INTO equipo (nombre) VALUES
-('Equipo de Desarrollo'),
-('Equipo de Diseño'),
-('Equipo de Marketing');
-
 -- Insert para la tabla usuarios
 INSERT INTO usuarios (nombre, email, contraseña, rolId, equipoId) VALUES
 ('Alice Smith', 'alice.smith@example.com', 'contraseña123', 1, 1),
@@ -104,12 +99,25 @@ INSERT INTO usuarios (nombre, email, contraseña, rolId, equipoId) VALUES
 ('Eve Davis', 'eve.davis@example.com', 'claveunica', 2, 3),
 ('Frank Miller', 'frank.miller@example.com', 'otraclave', 3, 2),
 ('Grace Wilson', 'grace.wilson@example.com', 'micontra', 4, NULL);
+-- Insertar Usuarios
+INSERT INTO usuarios (nombre, email, contraseña, rolId) VALUES
+('Juan Pérez', 'juan.perez@example.com', 'pass123', 1),
+('Ana García', 'ana.garcia@example.com', 'pass456', 2),
+('Carlos Rodríguez', 'carlos.rodriguez@example.com', 'pass789', 3),
+('Laura Martínez', 'laura.martinez@example.com', 'passabc', 2),
+('Pedro Sánchez', 'pedro.sanchez@example.com', 'passdef', 4);
 
 -- Insert para la tabla proyectos
 INSERT INTO proyectos (nombre, descripcion, creadorId) VALUES
 ('Desarrollo de Nueva Plataforma', 'Creación de una plataforma web innovadora.', 1),
 ('Rediseño de Sitio Web', 'Actualización completa del diseño y la funcionalidad del sitio web existente.', 2),
 ('Campaña de Marketing Digital', 'Implementación de estrategias de marketing online para aumentar la visibilidad.', 5);
+INSERT INTO proyectos (nombre, descripcion, creadorId) VALUES
+('Sistema de Gestión de Clientes', 'Desarrollo de un sistema para gestionar la información de los clientes.', 1),
+('Aplicación Móvil de E-commerce', 'Creación de una aplicación móvil para la venta de productos en línea.', 2),
+('Plataforma de Aprendizaje en Línea', 'Desarrollo de una plataforma para cursos y capacitaciones online.', 1),
+('Nuevo Sitio Web Corporativo', 'Diseño y desarrollo del nuevo sitio web de la empresa.', 3),
+('Herramienta de Análisis de Datos', 'Desarrollo de una herramienta para el análisis de grandes volúmenes de datos.', 2);
 
 -- Insert para la tabla tareas
 INSERT INTO tareas (proyectoId, usuarioId, nombre, descripcion, estado, fechaLimite) VALUES
@@ -119,6 +127,20 @@ INSERT INTO tareas (proyectoId, usuarioId, nombre, descripcion, estado, fechaLim
 (2, 4, 'Optimización de Imágenes', 'Comprimir y optimizar las imágenes del sitio web.', 'En_progreso', '2025-05-18'),
 (3, 5, 'Creación de Contenido para Redes Sociales', 'Generar publicaciones atractivas para las diferentes plataformas.', 'Pendiente', '2025-05-25'),
 (1, 4, 'Pruebas Unitarias de API', 'Escribir y ejecutar pruebas para la API.', 'Completada', '2025-05-12');
+INSERT INTO tareas (proyectoId, usuarioId, nombre, descripcion, estado, fechaLimite) VALUES
+(1, 2, 'Diseñar la interfaz de usuario', 'Diseñar la interfaz de usuario para el módulo de clientes.', 'En_progreso', '2025-04-20'),
+(1, 4, 'Implementar la autenticación', 'Implementar el sistema de autenticación de usuarios.', 'Pendiente', '2025-04-25'),
+(2, 3, 'Desarrollar el carrito de compras', 'Desarrollar la funcionalidad del carrito de compras en la app.', 'Completada', '2025-04-15'),
+(2, 2, 'Integrar pasarela de pago', 'Integrar una pasarela de pago segura en la aplicación.', 'En_progreso', '2025-04-22'),
+(3, 1, 'Crear la estructura de cursos', 'Definir la estructura y el contenido de los cursos en la plataforma.', 'Pendiente', '2025-04-28'),
+(3, 4, 'Implementar el sistema de inscripciones', 'Desarrollar el sistema para que los usuarios se inscriban en los cursos.', 'En_progreso', '2025-04-24'),
+(4, 5, 'Diseñar la página de inicio', 'Diseñar la página principal del nuevo sitio web.', 'Completada', '2025-04-10'),
+(4, 2, 'Desarrollar el formulario de contacto', 'Desarrollar el formulario para que los visitantes puedan contactar a la empresa.', 'Cancelada', '2025-04-18'),
+(5, 3, 'Implementar la conexión a la base de datos', 'Establecer la conexión con la base de datos para recuperar los datos.', 'En_progreso', '2025-04-21'),
+(5, 1, 'Desarrollar los algoritmos de análisis', 'Desarrollar los algoritmos para realizar el análisis de datos.', 'Pendiente', '2025-04-27'),
+(1, 1, 'Refactorizar módulo de informes', 'Mejorar la eficiencia y legibilidad del código del módulo de informes', 'En_progreso', '2025-05-01'),
+(2, 4, 'Corregir error en el módulo de pagos', 'Resolver un problema que impide procesar algunos pagos correctamente', 'Completada', '2025-04-12');
+
 
 -- Insert para la tabla invitacion
 INSERT INTO invitacion (email, token, fecha_invitacion) VALUES
@@ -150,3 +172,14 @@ INSERT INTO historial_cambios (tareaId, usuarioId, accion) VALUES
 (1, 1, 'Finalizó el diseño de la base de datos.'),
 (2, 3, 'Comenzó la maquetación de la página principal.'),
 (1, 2, 'Actualizó el estado de la tarea a "En_progreso".');
+
+
+UPDATE `sigepro`.`tareas` SET `prioridad` = 'baja' WHERE (`id` = '29');
+UPDATE `sigepro`.`tareas` SET `prioridad` = 'baja' WHERE (`id` = '17');
+UPDATE `sigepro`.`tareas` SET `prioridad` = 'baja' WHERE (`id` = '2');
+UPDATE `sigepro`.`tareas` SET `prioridad` = 'baja' WHERE (`id` = '9');
+UPDATE `sigepro`.`tareas` SET `prioridad` = 'alta' WHERE (`id` = '15');
+UPDATE `sigepro`.`tareas` SET `prioridad` = 'alta' WHERE (`id` = '23');
+UPDATE `sigepro`.`tareas` SET `prioridad` = 'alta' WHERE (`id` = '28');
+UPDATE `sigepro`.`tareas` SET `prioridad` = 'crítica' WHERE (`id` = '13');
+UPDATE `sigepro`.`tareas` SET `prioridad` = 'crítica' WHERE (`id` = '5');

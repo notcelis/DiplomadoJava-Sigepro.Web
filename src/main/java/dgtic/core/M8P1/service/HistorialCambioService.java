@@ -3,6 +3,7 @@ package dgtic.core.M8P1.service;
 import dgtic.core.M8P1.model.HistorialCambio;
 import dgtic.core.M8P1.repository.HistorialCambioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +20,10 @@ public class HistorialCambioService {
 
     public Optional<HistorialCambio> getHistorialCambioById(Long id) {
         return historialCambioRepository.findById(id);
+    }
+
+    public List<HistorialCambio> getHistorialCambioByTareaId(Long id) {
+        return historialCambioRepository.findByTareaId(id);
     }
 
 

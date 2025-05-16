@@ -21,7 +21,9 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item"><strong>Descripción:</strong> <span th:text="${tarea.descripcion}">Descripción</span></li>
             <li class="list-group-item"><strong>Estado:</strong> <span th:text="${tarea.estado}">Estado</span></li>
+            <li class="list-group-item"><strong>Prioridad:</strong> <span th:text="${tarea.prioridad}">Prioridad</span></li>
             <li class="list-group-item"><strong>Fecha Límite:</strong> <span th:text="${tarea.fechaLimite}">Fecha</span></li>
+            <li class="list-group-item"><strong>Responsable:</strong> <span th:text="${tarea.usuario.nombre}">Responsable</span></li>
             <li class="list-group-item"><strong>Proyecto:</strong> <span th:text="${tarea.proyecto.nombre}">Proyecto</span></li>
           </ul>
         </section>
@@ -85,11 +87,43 @@
 
       </div>
       <div class="card-footer text-end">
-        <a href="/tarea/tareas" class="btn btn-secondary">← Volver al listado</a>
+        <!-- Formulario DELETE -->
+        <form th:action="@{/tarea/eliminar/{id}(id=${tarea.id})}" method="post" th:id="'formEliminar' + ${tarea.id}" style="display:inline;">
+          <input type="hidden" name="_method" value="delete"/>
+          <button type="button" class="btn btn-danger btn-sm"
+                  th:onclick="'confirmarEliminacion(' + ${tarea.id} + ')'">
+            Eliminar
+          </button>
+        </form>
+        <a th:href="@{/tarea/editar/{id} (id=${tarea.id})}"
+           class="btn btn-info">editar <i class="fas fa-pen-nib"
+                                          aria-hidden="true"></i> </a>
+        <a href="/home" class="btn btn-secondary">← Volver al listado</a>
       </div>
+
     </div>
   </div>
 
 </main>
 </body>
+<script th:src="@{/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  function confirmarEliminacion(tareaId) {
+      Swal.fire({
+          title: '¿Estás seguro?',
+          text: "Esta acción no se puede deshacer.",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          confirmButtonText: 'Sí, eliminar',
+          cancelButtonText: 'Cancelar'
+      }).then((result) => {
+          if (result.isConfirmed) {
+              document.getElementById('formEliminar' + tareaId).submit();
+          }
+      });
+  }
+</script>
 </html>

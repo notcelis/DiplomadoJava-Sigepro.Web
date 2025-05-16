@@ -3,9 +3,11 @@ package dgtic.core.M8P1.controller;
 import dgtic.core.M8P1.Util.FileStorageProperties;
 import dgtic.core.M8P1.Util.FileStorageService;
 import dgtic.core.M8P1.model.Comentario;
+import dgtic.core.M8P1.model.HistorialCambio;
 import dgtic.core.M8P1.model.Tarea;
 import dgtic.core.M8P1.model.Usuario;
 import dgtic.core.M8P1.service.ComentarioService;
+import dgtic.core.M8P1.service.HistorialCambioService;
 import dgtic.core.M8P1.service.TareaService;
 import dgtic.core.M8P1.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +42,9 @@ public class ComentarioController {
     private ComentarioService comentarioService;
 
     @Autowired
+    private HistorialCambioService historialCambioService;
+
+    @Autowired
     private FileStorageService fileStorageService;
 
     @Autowired
@@ -65,6 +70,14 @@ public class ComentarioController {
             String nombreArchivo = fileStorageService.storeFile(archivo);
             nuevoComentario.setArchivoUrl("/imagenes/" + nombreArchivo);  // Generar URL accesible
         }
+
+        // Registrar en el historial de cambios
+        HistorialCambio historial = new HistorialCambio();
+        historial.setAccion("Comentario agregado");
+        historial.setFecha(LocalDate.now());
+        historial.setTarea(tarea);
+        historial.setUsuario(usuario);
+        historialCambioService.saveHistorialCambio(historial);
 
         comentarioService.saveComentario(nuevoComentario);
 
