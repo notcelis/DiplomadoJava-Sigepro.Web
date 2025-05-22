@@ -2,14 +2,8 @@ package dgtic.core.M8P1.controller;
 
 import dgtic.core.M8P1.Util.FileStorageProperties;
 import dgtic.core.M8P1.Util.FileStorageService;
-import dgtic.core.M8P1.model.Comentario;
-import dgtic.core.M8P1.model.HistorialCambio;
-import dgtic.core.M8P1.model.Tarea;
-import dgtic.core.M8P1.model.Usuario;
-import dgtic.core.M8P1.service.ComentarioService;
-import dgtic.core.M8P1.service.HistorialCambioService;
-import dgtic.core.M8P1.service.TareaService;
-import dgtic.core.M8P1.service.UsuarioService;
+import dgtic.core.M8P1.model.*;
+import dgtic.core.M8P1.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -50,6 +44,9 @@ public class ComentarioController {
     @Autowired
     private FileStorageProperties fileStorageProperties;
 
+    @Autowired
+    private NotificacionService notificacionService;
+
     @PostMapping("/{id}")
     public String agregarComentario(@PathVariable Long id,
                                     @RequestParam("usuarioId") Long usuarioId,
@@ -68,7 +65,7 @@ public class ComentarioController {
 
         if (archivo != null && !archivo.isEmpty()) {
             String nombreArchivo = fileStorageService.storeFile(archivo);
-            nuevoComentario.setArchivoUrl("/imagenes/" + nombreArchivo);  // Generar URL accesible
+            nuevoComentario.setArchivoUrl(nombreArchivo);  // Generar URL accesible
         }
 
         // Registrar en el historial de cambios
@@ -81,6 +78,18 @@ public class ComentarioController {
 
         comentarioService.saveComentario(nuevoComentario);
 
+        if (tarea.getUsuario() != null) {
+            Notificacion notificacion = new Notificacion();
+            notificacion.setUsuario(tarea.getUsuario());
+            notificacion.setContenido("Se ha comentado la tarea: " + tarea.getNombre());
+            notificacion.setFecha(LocalDateTime.now());
+            notificacion.setTarea(tarea);
+            notificacion.setLeido(false);
+            notificacionService.saveNotificacion(notificacion);
+        }
+
         return "redirect:/tarea/ver/" + id;  // Redirige al detalle de la tarea
     }
+
+
 }

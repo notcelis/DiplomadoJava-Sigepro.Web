@@ -72,5 +72,9 @@ public class TareaService {
         return tareaRepository.buscarTareasFiltradas(usuarioIdAcceso, proyectoId, usuarioId, prioridad, search);
     }
 
+    public  List<Tarea> obtenerTareasPorProyecto(Long proyectoId){
+        return tareaRepository.findByproyectoId(proyectoId);
+    }
+
 }
 

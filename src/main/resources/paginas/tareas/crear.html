@@ -19,14 +19,29 @@
     <div class="row justify-content-center">
       <div class="col-6">
         <div class="form-floating">
-          <input
-                  th:class="${#fields.hasErrors('proyecto')}? 'form-control is-invalid':form-control"
+          <p for="proyecto">Proyecto:</p>
+          <select name="proyecto" id="proyecto">
+            <option th:each="proyecto : ${proyectos}"
+                    th:value="${proyecto.id}"
+                    th:text="${proyecto.nombre}"
+                    th:selected="${proyecto.id == proyectoSeleccionado}">
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
 
-                  type="text" id="proyecto"
-                  name="proyecto"
-                  th:field="*{proyecto}"
-                  placeholder="proyecto">
-          <label for="proyecto">Proyecto:</label>
+    <div class="row justify-content-center">
+      <div class="col-6">
+        <div class="form-floating">
+          <input
+                  th:class="${#fields.hasErrors('usuario')}? 'form-control is-invalid':form-control"
+
+                  type="text" id="usuario"
+                  name="usuario"
+                  th:field="*{usuario}"
+                  placeholder="usuario">
+          <label for="usuario">Usuario:</label>
         </div>
       </div>
     </div>

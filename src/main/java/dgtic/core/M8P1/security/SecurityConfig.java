@@ -41,7 +41,7 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/bootstrap/**", "/iconos/**", "/image/**", "/tema/**").permitAll()
-                        .requestMatchers("/login", "/error").permitAll()
+                        .requestMatchers("/login", "/error","/usuario/registro").permitAll()
                         .requestMatchers("/auth/login").permitAll()
                         // Administrador tiene acceso a todo
                         .requestMatchers("/admin/**").hasRole("Administrador")

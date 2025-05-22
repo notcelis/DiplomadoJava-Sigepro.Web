@@ -5,13 +5,14 @@
 <body>
 <header th:replace="~{plantillas/plantilla :: header}"></header>
 <main class="container text-center shadow-lg p-3 mb-5 bg-body-tertiary rounded">
-  <h1>Perfil</h1>
 
-  <div>
-    <p><strong>Nombre:</strong> <span th:text="${usuario.nombre}"></span></p>
-    <p><strong>Email:</strong> <span th:text="${usuario.email}"></span></p>
-    <p><strong>Rol:</strong> <span th:text="${usuario.rol}"></span></p>
+  <div class="container mt-5 text-center">
+    <h2 class="text-danger">¡Algo salió mal!</h2>
+    <p th:text="${mensajeError}" class="text-muted"></p>
+    <a th:href="@{/home}" class="btn btn-primary mt-3">Volver al inicio</a>
   </div>
+
+
 </main>
 <footer th:replace="~{plantillas/plantilla :: footer}"></footer>
 </body>

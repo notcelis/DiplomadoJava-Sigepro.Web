@@ -17,15 +17,18 @@ public class Notificacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String contenido;
+
     private LocalDateTime fecha;
     private boolean leido;
 
-    @Enumerated(EnumType.STRING)
-    private TipoNotificacion tipo;
+    @ManyToOne
+    @JoinColumn(name = "usuarioId")
+    private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
+    @JoinColumn(name = "idTarea")
+    private Tarea tarea;
 }
 

@@ -98,7 +98,7 @@ CREATE TABLE notificaciones (
     contenido TEXT NOT NULL,
     fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     leido BOOLEAN DEFAULT FALSE,
-    CONSTRAINT fk_notificaciones_tareas FOREIGN KEY (idTarea) REFERENCES tareas(id),
+    CONSTRAINT fk_notificaciones_tareas FOREIGN KEY (idTarea) REFERENCES tareas(id) ON DELETE CASCADE,
     CONSTRAINT fk_notificaciones_usuarios FOREIGN KEY (usuarioId) REFERENCES usuarios(id) ON DELETE CASCADE
 );
 

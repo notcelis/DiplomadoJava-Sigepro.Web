@@ -14,8 +14,6 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@NamedQuery(name = "Reporte.findByTipo",
-        query = "SELECT r FROM Reporte r WHERE r.tipo = :tipo")
 public class Reporte {
 
     @Id
@@ -26,9 +24,6 @@ public class Reporte {
     @JoinColumn(name = "proyectoId")
     @NotNull
     private Proyecto proyecto;
-
-    @Enumerated(EnumType.STRING)
-    private TipoReporte tipo;
 
     @Column(nullable = false)
     @NotBlank
@@ -43,7 +38,6 @@ public class Reporte {
         return "Reporte{" +
                 "id=" + id +
                 ", proyectoId=" + proyecto +
-                ", tipo='" + tipo + '\'' +
                 ", contenido='" + contenido + '\'' +
                 ", fecha=" + fecha +
                 '}';

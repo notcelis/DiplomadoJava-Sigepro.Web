@@ -35,10 +35,21 @@ public class NotificacionService {
     public void invitarUsuario(Usuario usuario, String contenido) {
         Notificacion notificacion = new Notificacion();
         notificacion.setUsuario(usuario);
-        notificacion.setTipo(TipoNotificacion.Otro);
         notificacion.setContenido(contenido);
         notificacion.setFecha(LocalDateTime.now());
         notificacionRepository.save(notificacion);
     }
+
+    public List<Notificacion> obtenerNoLeidasPorUsuario(Long usuarioId) {
+        return notificacionRepository.findByUsuarioIdAndLeidoFalseOrderByFechaDesc(usuarioId);
+    }
+
+    public void marcarComoLeido(Long id) {
+        notificacionRepository.findById(id).ifPresent(n -> {
+            n.setLeido(true);
+            notificacionRepository.save(n);
+        });
+    }
+
 }
 

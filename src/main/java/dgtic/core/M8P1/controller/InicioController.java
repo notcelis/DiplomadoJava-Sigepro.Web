@@ -1,6 +1,7 @@
 package dgtic.core.M8P1.controller;
 
 import dgtic.core.M8P1.model.*;
+import dgtic.core.M8P1.repository.NotificacionRepository;
 import dgtic.core.M8P1.repository.TareaRepository;
 import dgtic.core.M8P1.repository.UsuarioProyectoRepository;
 import dgtic.core.M8P1.repository.UsuarioRepository;
@@ -16,11 +17,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -48,6 +51,22 @@ public class InicioController {
 
     @Autowired
     private TareaRepository tareaRepository;
+
+    @Autowired
+    private NotificacionRepository notificacionRepository;
+
+    @ModelAttribute("notificaciones")
+    public List<Notificacion> cargarNotificacionesDelUsuario(Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return Collections.emptyList();
+        }
+
+        String email = authentication.getName();
+        Usuario usuario = usuarioRepository.findByEmail(email).orElseThrow();
+        System.out.println(notificacionRepository.findByUsuarioAndLeidoFalseOrderByFechaDesc(usuario));
+        return notificacionRepository.findByUsuarioAndLeidoFalseOrderByFechaDesc(usuario);
+    }
+
 
     @GetMapping("home")
     public String home(
@@ -87,6 +106,8 @@ public class InicioController {
 
         Map<String, List<Tarea>> tareasPorEstado = tareasFiltradas.stream()
                 .collect(Collectors.groupingBy(t -> t.getEstado().name()));
+
+
 
         model.addAttribute("tareas", tareasPorEstado);
         model.addAttribute("proyectos", proyectosPermitidos);

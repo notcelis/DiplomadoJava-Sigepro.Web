@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -45,6 +47,9 @@ public class TareaController {
 
     @Autowired
     private UsuarioProyectoRepository usuarioProyectoRepository;
+
+    @Autowired
+    private NotificacionService notificacionService;
 
     @GetMapping("tareas")
     public String tareas(Model model, @AuthenticationPrincipal UserDetails userDetails,
@@ -89,10 +94,21 @@ public class TareaController {
     }
 
     @GetMapping("crear")
-    public String crear(Model model){
+    public String crear(Model model, Principal principal){
         String cadena = "Crear tarea";
+
+        //Usuario usuarioActual = usuarioService.buscarPorNombre(principal.getName()).get(0); // <-- cambia si usas otro sistema
+        Usuario usuarioActual = usuarioRepository.findByEmail(principal.getName()).orElseThrow(); // <-- cambia si usas otro sistema
+
+        // Obtener proyectos a los que tiene acceso
+        List<Proyecto> proyectosPermitidos = usuarioProyectoRepository.findByUsuarioId(usuarioActual.getId())
+                .stream()
+                .map(UsuarioProyecto::getProyecto)
+                .toList();
+
         model.addAttribute("cadena",cadena);
         model.addAttribute("tarea", new Tarea());
+        model.addAttribute("proyectos", proyectosPermitidos);
         return "tareas/crear";
     }
 
@@ -103,14 +119,21 @@ public class TareaController {
         if(bindingResult.hasErrors()){
             for(ObjectError error:bindingResult.getAllErrors()){
                 System.out.println("Error: "+error.getDefaultMessage());
-                System.out.println("======================================================" +
-                        tarea +
-                        "================================================================");
             }
             return "tareas/crear";
         }
 
         tareaService.saveTarea(tarea);
+        if (tarea.getUsuario() != null) {
+            Notificacion notificacion = new Notificacion();
+            notificacion.setUsuario(tarea.getUsuario());
+            notificacion.setContenido("Se te ha asignado la tarea: " + tarea.getNombre());
+            notificacion.setFecha(LocalDateTime.now());
+            notificacion.setTarea(tarea);
+            notificacion.setLeido(false);
+            notificacionService.saveNotificacion(notificacion);
+        }
+
         model.addAttribute("tareas",tareaService.getAllTareas());
         model.addAttribute("tarea","Tarea creada con éxito");
 
@@ -196,6 +219,16 @@ public class TareaController {
         historial.setTarea(tarea);
         historial.setUsuario(usuario);
         historialCambioService.saveHistorialCambio(historial);
+
+        if (tarea.getUsuario() != null) {
+            Notificacion notificacion = new Notificacion();
+            notificacion.setUsuario(tarea.getUsuario());
+            notificacion.setContenido("Se ha editado la tarea: " + tarea.getNombre());
+            notificacion.setFecha(LocalDateTime.now());
+            notificacion.setTarea(tarea);
+            notificacion.setLeido(false);
+            notificacionService.saveNotificacion(notificacion);
+        }
 
         return "redirect:/tarea/ver/" + id; // Redirige al detalle de la tarea
     }

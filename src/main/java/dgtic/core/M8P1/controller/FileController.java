@@ -4,6 +4,7 @@ import dgtic.core.M8P1.Util.FileStorageProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,34 +13,33 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Controller
 public class FileController {
 
-    private final Path fileStorageLocation;
-
-    @Autowired
-    public FileController(FileStorageProperties fileStorageProperties) {
-        this.fileStorageLocation = Paths.get(fileStorageProperties.getDir()).toAbsolutePath().normalize();
-    }
-
-    @GetMapping("/uploads/{filename}")
-    @ResponseBody
-    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+    @GetMapping("/archivos/{nombreArchivo:.+}")
+    public ResponseEntity<Resource> servirArchivo(@PathVariable String nombreArchivo) {
         try {
-            Path file = this.fileStorageLocation.resolve(filename).normalize();
-            Resource resource = new FileSystemResource(file);
-            if (resource.exists()) {
+            Path archivoPath = Paths.get("uploads").resolve(nombreArchivo).normalize();
+            Resource recurso = new UrlResource(archivoPath.toUri());
+
+            if (recurso.exists() || recurso.isReadable()) {
+                String contentType = Files.probeContentType(archivoPath);
+                if (contentType == null) contentType = "application/octet-stream";
+
                 return ResponseEntity.ok()
-                        .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                        .body(resource);
+                        .contentType(MediaType.parseMediaType(contentType))
+                        .body(recurso);
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+                return ResponseEntity.notFound().build();
             }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+
+        } catch (IOException e) {
+            return ResponseEntity.internalServerError().build();
         }
     }
 }

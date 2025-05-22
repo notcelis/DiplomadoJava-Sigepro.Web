@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="es">
+<head th:replace="~{plantillas/plantilla :: head}"></head>
+<body>
+<header th:replace="~{plantillas/plantilla :: header}"></header>
+<main class="container text-center shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+
+    <h2>Notificaciones</h2>
+    <ul>
+        <li th:each="notif : ${notificaciones}">
+            <span th:text="${notif.contenido}">Contenido</span> -
+            <small th:text="${#temporals.format(notif.fecha, 'dd/MM/yyyy HH:mm')}"></small>
+            <form th:action="@{/notificaciones/marcar-leida/{id}(id=${notif.id})}" method="post" style="display:inline;">
+                <button type="submit" class="btn btn-sm btn-outline-primary">Marcar como leída</button>
+            </form>
+        </li>
+    </ul>
+
+</main>
+<footer th:replace="~{plantillas/plantilla :: footer}"></footer>
+</body>
+</html>

@@ -21,8 +21,7 @@ public class FileStorageService {
 
     @Autowired
     public FileStorageService(FileStorageProperties fileStorageProperties) {
-        // Utiliza la carpeta dentro de resources/static
-        this.fileStorageLocation = Paths.get("src/main/resources/static/imagenes").toAbsolutePath().normalize();
+        this.fileStorageLocation = Paths.get("uploads").toAbsolutePath().normalize();
 
         try {
             Files.createDirectories(this.fileStorageLocation);
@@ -33,7 +32,7 @@ public class FileStorageService {
 
     public String storeFile(MultipartFile file) {
         String nombreLimpio = StringUtils.cleanPath(file.getOriginalFilename());
-        String nuevoNombre = UUID.randomUUID() + "_" + nombreLimpio;
+        String nuevoNombre = nombreLimpio;
 
         try {
             if (nombreLimpio.contains("..")) {

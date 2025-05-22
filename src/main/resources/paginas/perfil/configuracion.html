@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="es">
+<head th:replace="~{plantillas/plantilla :: head}"></head>
+<body>
+<header th:replace="~{plantillas/plantilla :: header}"></header>
+<main class="container text-center shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+
+  <h1>Configuración</h1>
+
+  <div th:if="${error}">
+    <p th:text="${error}" style="color:red;"></p>
+  </div>
+  <div th:if="${success}">
+    <p th:text="${success}" style="color:green;"></p>
+  </div>
+
+  <form th:action="@{/home/actualizar}" th:object="${usuario}" method="post">
+    <div>
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" th:field="*{nombre}" required />
+    </div>
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" th:field="*{email}" readonly />
+    </div>
+    <!-- Contraseña actual -->
+    <div>
+      <label for="actualPassword">Contraseña actual:</label>
+      <input type="password" name="actualPassword" id="actualPassword" required />
+    </div>
+
+    <!-- Nueva contraseña -->
+    <div>
+      <label for="nuevaPassword">Nueva contraseña:</label>
+      <input type="password" name="nuevaPassword" id="nuevaPassword"/>
+    </div>
+
+    <!-- Confirmar nueva contraseña -->
+    <div>
+      <label for="confirmarPassword">Confirmar nueva contraseña:</label>
+      <input type="password" name="confirmarPassword" id="confirmarPassword"/>
+    </div>
+
+    <button type="submit">Guardar Cambios</button>
+  </form>
+
+
+</main>
+<footer th:replace="~{plantillas/plantilla :: footer}"></footer>
+</body>
+</html>
